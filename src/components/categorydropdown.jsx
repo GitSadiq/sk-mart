@@ -1,126 +1,47 @@
 import React from "react";
 import { DownOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 import { Dropdown, Space } from "antd";
 import "../scss/components/categorydropdown.scss";
 const items = [
   {
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.antgroup.com"
-      >
-        Pharmacy
-      </a>
-    ),
+    label: <Link to="/comingsoon">Pharmacy</Link>,
     key: "0",
   },
   {
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        General Grocery
-      </a>
-    ),
+    label: <Link to="/products">General Grocery</Link>,
     key: "1",
   },
   {
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        Bakery
-      </a>
-    ),
+    label: <Link to="/comingsoon">Bakery</Link>,
     key: "2",
   },
   {
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        Fruits and Vegetables
-      </a>
-    ),
+    label: <Link to="/comingsoon">Fruits and Vegetables</Link>,
     key: "3",
   },
   {
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        Dairy Products
-      </a>
-    ),
+    label: <Link to="/comingsoon">Dairy Products</Link>,
     key: "4",
   },
   {
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        Snacks & Beverages
-      </a>
-    ),
+    label: <Link to="/comingsoon">Snacks & Beverages</Link>,
     key: "5",
   },
   {
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        All types of Meat
-      </a>
-    ),
+    label: <Link to="/comingsoon">All types of Meat</Link>,
     key: "6",
   },
   {
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        Frozen Products
-      </a>
-    ),
+    label: <Link to="/comingsoon">Frozen Products</Link>,
     key: "7",
   },
   {
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        Cleaning Products
-      </a>
-    ),
+    label: <Link to="/comingsoon">Cleaning Products</Link>,
     key: "8",
   },
   {
-    label: (
-      <a
-        target="_blank"
-        rel="noopener noreferrer"
-        href="https://www.aliyun.com"
-      >
-        Skin Care
-      </a>
-    ),
+    label: <Link to="/comingsoon">Skin Care</Link>,
     key: "9",
   },
 ];
@@ -130,9 +51,9 @@ const CategoryDropDown = () => (
       items,
     }}
   >
-    <a onClick={(e) => e.preventDefault()}>
+    <Link onClick={(e) => e.preventDefault()}>
       <Space>Categories</Space>
-    </a>
+    </Link>
   </Dropdown>
 );
 export default CategoryDropDown;

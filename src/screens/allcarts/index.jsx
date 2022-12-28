@@ -1,8 +1,14 @@
-function Carts () {
-    return(
-        <div className="cart-body">
-            
+import NavBar from "../../components/navbar";
+import Footer from "../../components/footer";
 
-        </div>
-    )
+function Carts() {
+  return (
+    <div>
+      <NavBar />
+      <div className="cart-body"></div>
+      <Footer />
+    </div>
+  );
 }
+
+export default Carts;

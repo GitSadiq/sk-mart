@@ -3,13 +3,13 @@ import * as React from "react";
 import logo from "../../assets/images/sk-mart.png";
 import { Input, Button, Form } from "antd";
 import { UserOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
-// import { Link } from "react-router-dom";
-// import { useNavigate } from "react-router";
+import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 // import { userSignUp } from "../../conifg/firebase";
 // import swal from "sweetalert";
 
 export default function SignUp() {
-  // const navigate = useNavigate()
+  const navigate = useNavigate();
   const onFinish = async (values) => {
     // const alertuser = await userSignUp(values)
     // if (alertuser.error) {
@@ -23,6 +23,7 @@ export default function SignUp() {
     //     "success");
     //   navigate('/login')
     // }
+    navigate("/login");
   };
 
   return (
@@ -121,7 +122,7 @@ export default function SignUp() {
           </Form.Item>
           <Button htmlType="submit">SignUp</Button>
           <p>
-            Or <a href="#">Already have an account!</a>
+            Or <Link to="/login">Already have an account!</Link>
           </p>
           <p>
             We won't reveal your email and password to anyone else nor use it to

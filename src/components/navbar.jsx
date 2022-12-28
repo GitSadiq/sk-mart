@@ -2,8 +2,11 @@ import "../scss/components/navbar.scss";
 import logo from "../assets/images/sk-mart.png";
 import CategorDropDown from "./categorydropdown";
 import { Row, Col, Input } from "antd";
+import { useNavigate } from "react-router-dom";
 const { Search } = Input;
+
 export default function NavBar() {
+  const navigate = useNavigate();
   const onSearch = (value) => console.log(value);
   return (
     <div className="navbar-body">
@@ -38,7 +41,13 @@ export default function NavBar() {
           md={{ span: 4 }}
           lg={{ span: 2 }}
         >
-          <p>Home</p>
+          <p
+            onClick={() => {
+              navigate("/");
+            }}
+          >
+            Home
+          </p>
         </Col>
         <Col
           className="navbar-col"
@@ -65,7 +74,13 @@ export default function NavBar() {
           md={{ span: 5 }}
           lg={{ span: 2 }}
         >
-          <p>Login</p>
+          <p
+            onClick={() => {
+              navigate("/login");
+            }}
+          >
+            Login
+          </p>
         </Col>
         <Col
           className="navbar-col"
@@ -74,7 +89,13 @@ export default function NavBar() {
           md={{ span: 5 }}
           lg={{ span: 2 }}
         >
-          <p>Cart</p>
+          <p
+            onClick={() => {
+              navigate("./carts");
+            }}
+          >
+            Cart
+          </p>
         </Col>
       </Row>
     </div>
