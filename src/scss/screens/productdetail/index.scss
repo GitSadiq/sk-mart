@@ -1,0 +1,191 @@
+@import '../../main.scss';
+
+.productdetail-body{
+    @include body(auto, $primaryFontFamily , $primaryFontSize, $darkgreen, white );
+    padding-top: 1%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    .edit-button{
+        margin: auto;
+        margin-top: 1%;
+        padding: 0%;
+        cursor: pointer;
+        @include button(
+            90%,
+           6vh,
+            $defaultborder,
+            1vh,
+            $buttonfontsize,
+            white,
+            $darkgreen
+        )
+    }
+    .edit-button:hover{
+        color: $darkgreen;
+        background-color: white;
+    }
+    .row{
+        // border: $defaultborder;
+        margin-top: 1%;
+        width: 100%;
+        .ant-col{
+            .ant-carousel{
+                background-color: black;
+                border-radius: 1vh;
+            }
+            .ant-carousel .slick-dots li button{
+                background-color: black ;
+                // color: black ;
+            }
+            .ant-carousel .slick-initialized .slick-slide{
+                border-radius: 1vh;
+                display: flex;
+                justify-content: center;
+                // align-items: center;
+                .ant-image-img{
+                    max-width: 90%;
+                    height: 70vh;
+                    margin-top: 0% ;
+                    margin-left: 5%;
+                }
+                @media screen and (max-width: 568px) {
+                    .ant-image-img{
+                        height: 40vh;
+                    }
+                }
+                @media screen and (max-width: 920px) and (min-width: 569px) {
+                    .ant-image-img{
+                        height: 50vh;
+                    }
+                }
+            }
+            .description-div{
+                border: $thinborder;
+                margin-top: 2%;
+                border-radius: 1vh ;
+                white-space: pre-line;
+                h1{
+                    color: $darkgreen;
+                    padding-left: 2%;
+                    margin-top: 0%;
+                    margin-bottom: -2%;
+                }
+                p{
+                    padding: 2%;
+                }
+            }
+        }
+        .col-2{
+            .title-price-location{
+                border: $thinborder;
+                border-radius: 1vh ;
+                padding: 2%;
+                .pirce-icons{
+                    display: flex;
+                    justify-content: space-between;
+                    .price{
+                        font-size: $headingFontSize;
+                        font-weight: bold;
+                    }
+                    .Icons-div{
+                        display: flex;
+                        justify-content: flex-end;
+                        .icon{
+                            font-size: $headingFontSize;
+                            font-weight: bold;
+                            margin-left: 30%;
+                        }
+                    }
+                }
+                .title{
+                    font-size: calc(10px + 2vmin);
+                }
+                
+                .quantity{
+                    display: flex;
+                    justify-content: space-evenly;
+                    .p{
+                        color: $darkgreen;
+                        font-weight: 600;
+                    }
+                    .increment-decrement-button{
+                        display: flex;
+                        span{
+                            margin: 0% 8% 0% 8%;
+                        }
+                        button{
+                            @extend .edit-button;
+                            width: 5vw;
+                        }
+                    }
+                    .add-to-cart-button{
+                        @extend .increment-decrement-button;
+                        button{
+                            width: 15vw;
+                        }
+                    }
+                }
+                .CheckOut-button{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    button{
+                        @extend .edit-button
+                    }
+                }
+            }
+            .seller-details{
+                margin-top: 2%;
+                border: $thinborder;
+                border-radius: 1vh ;
+                p{
+                    font-size: $headingFontSize;
+                    // border: $defaultborder;
+                }
+                .seller-name{
+                    margin-top: -3%;
+                    display: flex;
+                    // border: $defaultborder;
+                    padding-left: 4%;
+                    // align-items: center;
+                    font-size: calc(10px + 2vmin);;
+                    img{
+                        // border: $defaultborder;
+                        width: calc(22px + 2vmin);
+                        height: calc(22px + 2vmin);
+                    }
+                    @media screen and (min-width: 920px) {
+                        img{
+                            width: calc(22px + 3vmin) ;
+                            height: calc(22px + 3vmin);
+                        }
+                    }
+                    p{
+                        font-size: $primaryFontSize;
+                    }
+                }
+                .seller-chat{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    button{
+                        @extend .edit-button;
+                    }
+                    button:hover{
+                        color: $darkgreen;
+                        background-color: white;
+                    }
+                    P{
+                        font-size: $primaryFontSize;
+                    }
+                }
+            }
+        }
+    }
+    
+}
+.ant-image-preview-img{
+   width: auto;
+   height: auto;
+}

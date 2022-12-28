@@ -1,0 +1,15 @@
+@import '../main.scss';
+
+.ant-dropdown-trigger{
+    margin: auto;
+    text-shadow: 2px 2px $darkgreen;
+    color: white;
+    font-size: $primaryFontSize;
+}
+.ant-dropdown-trigger:hover{
+    @extend .ant-dropdown-trigger
+}
+.ant-dropdown-menu-title-content{
+    color: $toodarkgreen;
+    font-size: $paraFontSize;
+}

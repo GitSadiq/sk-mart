@@ -1,0 +1,69 @@
+@import '../../main.scss';
+
+.product-body{
+    @include body(auto, $primaryFontFamily, $headingFontSize, $toodarkgreen, white);
+    margin: 1% 2% 3% 2%;
+    h3{
+        text-shadow: 0px 0px 1px $darkgreen;
+        color: $darkgreen;
+    }
+    .row{
+        padding: 0%;
+        .ant-card-bordered{
+            border: $thinborder;
+        }
+        .ant-card{
+            width: auto;
+            border-radius: 1vh;
+            cursor: pointer;
+            .ant-card-cover{
+                height: calc(150px + 5vh);
+                display: flex;
+                justify-content: center;
+                align-content: flex-end;
+                img{
+                   margin: 1%;
+                    height: 100%;
+                    max-width: 100%;
+                    width: min-content;
+                }
+             }
+             .ant-card-body{
+                display: flex;
+                flex-direction: column;
+                height: calc(170px + 4vh);
+                color: $darkgreen;
+                padding: 0%;
+                .card-product-name{
+                    width: 90%;
+                    margin: auto;
+                    height: 25%;
+                    font-size: $primaryFontSize;
+                    font-weight: 700;
+                    overflow-y:hidden ;
+                }                
+                .card-product-content{
+                    @extend .card-product-name;
+                    height: 50%;
+                    font-size: $midFontSize;
+                    font-weight: 600 ;
+                    overflow-y:hidden ;
+                }
+                .card-button{
+                    margin: 2% auto;
+                    text-shadow: 1px 1px 2px $darkgreen;
+                    text-align: center;
+                    height: 25%;
+                    @include button(90%,auto, $thinborder,
+                    1vh, $buttonfontsize, $white, $lightgreen)
+                }
+                .card-button:hover{
+                    background-color: white;
+                    color: $darkgreen;
+                    border: $defaultborder;
+                    text-shadow: none;
+                }
+             }
+        } 
+    }
+}

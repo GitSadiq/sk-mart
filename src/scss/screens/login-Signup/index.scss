@@ -1,0 +1,87 @@
+@import '../../main.scss';
+
+.login-signup-body {
+    @include body(100vh, $primaryFontFamily, $primaryFontSize,
+    $lightgreen, $green );
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    #signUp-content-body{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        width: 70vh;
+        background-color: white ;
+        border-radius: 1vh;
+        border: $defaultborder;
+        height: auto;
+        img{
+            margin-top: 1vh;
+            width: 50%;
+        }
+        h2{
+            font-weight: bolder;
+            color: $darkgreen;
+            font-size: $primaryFontSize;
+        }
+        .login-form{
+            width: 80%;
+        }
+        .ant-input-affix-wrapper-focused{
+            @include border(1vh, $darkgreen);
+            outline: none !important;
+            box-shadow: none !important;
+        }
+        .ant-input-affix-wrapper:not(.ant-input-affix-wrapper-disabled):hover {
+            @include border(0.4vh, $lightgreen);
+            border-color: $lightgreen;
+        }
+        .ant-input::placeholder{
+            color: #002f3477;
+        }
+        .ant-btn{
+            @include button(100%, 6.5vh, $defaultborder, 1vh,
+             $buttonfontsize, white, $lightgreen );
+            padding-top: 0%;
+        }
+        .ant-btn:hover, .ant-btn:focus{
+            @include border(0.4vh, $darkgreen);
+            color: $white;
+            background-color: $darkgreen;
+        }
+        
+        P{
+            font-size: $paraFontSize;
+            margin: calc(10px + 1vmin);
+            color: $darkgreen;
+            a{
+                color: $darkgreen;
+                font-weight: bold;
+            }
+        }
+        .username{
+            height: 6.5vh;
+            border: $defaultborder;
+            border-radius: 2px !important;
+            font-size: $inputFontSize;
+        }
+    }
+
+}
+
+@media screen and (max-width: 480px )  {
+    #signUp-content-body{
+        width: 98vw; 
+    }
+}
+
+@media screen and (max-width: 920px ) and (min-width: 481px)  {
+    #signUp-content-body {
+        width: 80vw; 
+    }
+    .username{
+        font-size: $inputFontSizeTablet;
+    }
+
+}

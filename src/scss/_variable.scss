@@ -1,0 +1,24 @@
+$defaultborder: 0.4vh solid #1f763b; 
+$thinborder: 0.2vh solid #1f763b;
+@mixin border($width, $color) {
+    border: $width solid $color ;
+}
+
+@mixin body($height, $fontfamily, $fontSize, $fontColor, $backgroundColor  ) {
+    margin: 0%;
+    padding: 0%;
+    height: $height;
+    font-family: $fontfamily;
+    font-size: $fontSize;
+    color: $fontColor;
+    background-color: $backgroundColor;
+}
+@mixin button($width, $height, $border, $borderRadius, $fontsize, $color, $bgColor ){
+    width: $width;
+    height: $height;
+    border: $border;
+    border-radius: $borderRadius;
+    font-size: $fontsize;
+    color: $color;
+    background-color: $bgColor;
+}

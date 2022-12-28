@@ -1,0 +1,47 @@
+@import '../main.scss';
+
+.navbar-body{
+    @include body(auto, $primaryFontFamily, $primaryFontSize,
+     $white, $lightgreen );
+    box-shadow: 0px 2px 5px #1f763b;
+    .header-row{
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        .navbar-col{
+            // border: $defaultBoard;
+            display: flex;
+            align-items: center;    
+            justify-content: center;
+            img{
+                width: 100%;
+            }
+            p{
+                margin: auto;
+                text-shadow: 2px 2px $darkgreen;
+            }
+            .ant-input-group-wrapper {
+                .ant-input {
+                    border-radius: 0.8vh 0px 0px 0.8vh;
+                    box-shadow: none;
+                    @include border(0.3vh, $darkgreen);
+                }
+                .ant-input:focus {
+                    @include border(0.4vh, $darkgreen);
+                }
+                .ant-input-group-addon{
+                    background-color: $darkgreen;
+                    border-radius: 0px 0.8vh 0.8vh 0px;
+                    .ant-btn {
+                        @extend .ant-input-group-addon;
+                        border-color: $darkgreen;
+                        background-color: $darkgreen;
+                        color: white;
+                        font-size: $inputFontSizeTablet;
+                    }
+                }
+            }
+        }
+    }
+    
+}

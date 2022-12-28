@@ -1,0 +1,11 @@
+@import '../main.scss';
+
+.footer-body{
+    @include body(auto, $primaryFontFamily, $paraFontSize,
+     $white, $darkgreen );
+     display: flex;
+     justify-content: center;
+     p{
+        margin: auto;
+     }
+}
