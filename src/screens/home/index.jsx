@@ -29,7 +29,7 @@ export default function Home() {
             lg={{ span: 6 }}
             className="Col"
             onClick={() => {
-              alert("Coming Soon");
+              navigate("/products/Pharmacy");
             }}
           >
             <Card
@@ -47,7 +47,7 @@ export default function Home() {
             lg={{ span: 6 }}
             className="Col"
             onClick={() => {
-              navigate("./products");
+              navigate("/products/General Grocery");
             }}
           >
             <Card className="cards" cover={<img alt="example" src={grocery} />}>

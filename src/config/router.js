@@ -15,8 +15,8 @@ function RouterWrapper() {
                 <Route path="/" element={<Home />} />
                 <Route path="/login" element={<Login />} />
                 <Route path="/signup" element={<SignUp />} />
-                <Route path="/products" element={<Products />} />
-                <Route path="/productdetail" element={<Productdetail />} />
+                <Route path="/products/:name" element={<Products />} />
+                <Route path="/productdetail/:category/:docRef" element={<Productdetail />} />
                 <Route path="/createAds" element={<CreateAds />} />
                 <Route path="/carts" element={<Carts />} />
                 <Route path="/comingsoon" element={<h1>Coming Soon</h1>} />
