@@ -5,21 +5,20 @@ import { MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import logo from "../../assets/images/sk-mart.png";
 import { useNavigate } from "react-router-dom";
-// import { userLogin } from "../../conifg/firebase";
-// import swal from "sweetalert";
+import { userLogin } from "../../config/firebase";
+import swal from "sweetalert";
 
 export default function Login() {
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
-    //   const alertlogin = await userLogin(values);
-    //   if (alertlogin.error) {
-    //     swal("ERROR!", alertlogin.message, "error");
-    //   } else {
-    //     swal("Success!", alertlogin.message, "success");
-    //       navigate("/");
-    //   }
-    navigate("/");
+      const alertlogin = await userLogin(values);
+      if (alertlogin.error) {
+        swal("ERROR!", alertlogin.message, "error");
+      } else {
+        swal("Success!", alertlogin.message, "success");
+          navigate("/");
+      }
   };
 
   return (

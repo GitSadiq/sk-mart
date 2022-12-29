@@ -5,6 +5,7 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 
 import {
@@ -18,7 +19,7 @@ import {
   doc,
   updateDoc,
 } from "firebase/firestore";
-    
+
 import { getStorage, ref, uploadBytes, getDownloadURL } from "firebase/storage";
 
 const firebaseConfig = {
@@ -34,3 +35,103 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getFirestore(app);
 const storage = getStorage(app);
+
+async function userSignUp(userSignUpData) {
+  const { username, email, password } = userSignUpData
+  try {
+    const response = await createUserWithEmailAndPassword(auth, email, password)
+    // console.log(response.user.uid)
+    const docRef = await addDoc(collection(db, "userdetails"), {
+      username: username,
+      email: email,
+      uid: response.user.uid
+    });
+    return { error: false, message: "User created succussfully! Now login", }
+  }
+  catch (error) {
+    return { error: true, message: error.message }
+  }
+}
+
+async function userLogin(userLoginData) {
+  const { email, password } = userLoginData
+  try {
+    await signInWithEmailAndPassword(auth, email, password)
+    return { error: false, message: "User login successfully" }
+  }
+  catch (error) {
+    return { error: true, message: error.message }
+  }
+}
+
+function isUserThere(setUserUid, setUserEmail) {
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      setUserUid(user.uid)
+      setUserEmail(user.email)
+      // console.log("user available", user)
+    }
+    else {
+      console.log("user not there")
+    }
+  })
+}
+
+function logOut() {
+  try {
+    signOut(auth)
+    return { error: false, message: "SignOut, Now you can't add to cart", }
+  }
+  catch (error) {
+    return { error: true, message: error.message }
+  }
+}
+
+//trying for multiple images
+async function getImageURL(imageData) {
+  let imageUrlArray = []
+  try {
+    for (var i = 0; i < imageData.length; i++) {
+      const imageRef = ref(storage, "images/" + imageData[i].name)
+      const res = await uploadBytes(imageRef, imageData[i])
+      const url = await getDownloadURL(res.ref)
+      imageUrlArray.push(url)
+      // console.log(url)
+    }
+    return imageUrlArray
+  }
+  catch (error) {
+    console.log(error.message)
+  }
+}
+
+//single image working done
+// async function getImageURL(imageData) {
+//   try {
+//       const imageRef = ref(storage, "profilePic/" + imageData[0].name)
+//       const res = await uploadBytes(imageRef, imageData[0])
+//       const url = await getDownloadURL(res.ref)
+//       return url
+//   }
+//   catch (error) {
+//       console.log(error.message)
+//   }
+// }
+
+//admin create ads
+const createAd = async (values, imageUrl) => {
+  try {
+    const response = await addDoc(collection(db, values.product.category), values.product)
+    //upadate the create add document
+    const updateAdsDetails = doc(db, values.product.category, response.id);
+    await updateDoc(updateAdsDetails, {
+      docId: response.id,
+      url: imageUrl
+    });
+  }
+  catch (error) {
+    alert("Some data missing in ad ", error.message)
+  }
+}
+
+export { userSignUp, userLogin, isUserThere, logOut, getImageURL, createAd }

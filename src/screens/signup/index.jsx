@@ -5,25 +5,24 @@ import { Input, Button, Form } from "antd";
 import { UserOutlined, MailOutlined, LockOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
-// import { userSignUp } from "../../conifg/firebase";
-// import swal from "sweetalert";
+import { userSignUp } from "../../config/firebase";
+import swal from "sweetalert";
 
 export default function SignUp() {
   const navigate = useNavigate();
   const onFinish = async (values) => {
-    // const alertuser = await userSignUp(values)
-    // if (alertuser.error) {
-    //   swal("ERROR!",
-    //     alertuser.message,
-    //     "error");
-    // }
-    // else {
-    //   swal("Success!",
-    //     alertuser.message,
-    //     "success");
-    //   navigate('/login')
-    // }
-    navigate("/login");
+    const alertuser = await userSignUp(values)
+    if (alertuser.error) {
+      swal("ERROR!",
+        alertuser.message,
+        "error");
+    }
+    else {
+      swal("Success!",
+        alertuser.message,
+        "success");
+      navigate('/login')
+    }
   };
 
   return (

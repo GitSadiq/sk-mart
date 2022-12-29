@@ -3,10 +3,32 @@ import logo from "../assets/images/sk-mart.png";
 import CategorDropDown from "./categorydropdown";
 import { Row, Col, Input } from "antd";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { isUserThere, logOut } from "../config/firebase";
+import swal from "sweetalert";
 const { Search } = Input;
 
 export default function NavBar() {
+  const [userUid, setUserUid] = useState();
+  const [userEmail, setUserEmail] = useState();
   const navigate = useNavigate();
+  
+ 
+  // console.log(userUid)
+
+  useEffect(() => {
+    isUserThere(setUserUid, setUserEmail);
+  }, []);
+
+  function handleLogout() {
+    const resp = logOut();
+    // console.log(resp);
+    setUserUid(false);
+    setUserEmail(false);
+    swal("Success!", resp.message, "success");
+    navigate("/");
+  }
+
   const onSearch = (value) => console.log(value);
   return (
     <div className="navbar-body">
@@ -65,7 +87,17 @@ export default function NavBar() {
           md={{ span: 4 }}
           lg={{ span: 2 }}
         >
-          <p>Contact</p>
+          {userEmail === "admin@skmart.com" ? (
+            <p
+              onClick={() => {
+                navigate("/createads");
+              }}
+            >
+              Create Ads
+            </p>
+          ) : (
+            <p>Contact</p>
+          )}
         </Col>
         <Col
           className="navbar-col"
@@ -74,13 +106,17 @@ export default function NavBar() {
           md={{ span: 5 }}
           lg={{ span: 2 }}
         >
-          <p
-            onClick={() => {
-              navigate("/login");
-            }}
-          >
-            Login
-          </p>
+          {userUid ? (
+            <p onClick={handleLogout}>LogOut</p>
+          ) : (
+            <p
+              onClick={() => {
+                navigate("/login");
+              }}
+            >
+              Login
+            </p>
+          )}
         </Col>
         <Col
           className="navbar-col"
@@ -89,13 +125,23 @@ export default function NavBar() {
           md={{ span: 5 }}
           lg={{ span: 2 }}
         >
-          <p
-            onClick={() => {
-              navigate("./carts");
-            }}
-          >
-            Cart
-          </p>
+          {userEmail === "admin@skmart.com" ? (
+            <p
+              onClick={() => {
+                navigate("./order");
+              }}
+            >
+              Orders
+            </p>
+          ) : (
+            <p
+              onClick={() => {
+                navigate("./carts");
+              }}
+            >
+              Cart
+            </p>
+          )}
         </Col>
       </Row>
     </div>

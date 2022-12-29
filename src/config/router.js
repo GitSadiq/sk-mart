@@ -21,7 +21,6 @@ function RouterWrapper() {
                 <Route path="/carts" element={<Carts />} />
                 <Route path="/comingsoon" element={<h1>Coming Soon</h1>} />
                 <Route path="/error" element={<h1>This page is under maintenance</h1>} />
-
             </Routes>
         </BrowserRouter>
     );

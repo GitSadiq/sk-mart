@@ -1,26 +1,48 @@
 import { InboxOutlined, UploadOutlined } from "@ant-design/icons";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Form, Input, Select, Upload } from "antd";
 import "../../scss/screens/createads/index.scss";
+import { layout } from "../../components/_variables";
+import { getImageURL, createAd } from "../../config/firebase";
 import NavBar from "../../components/navbar";
 import Footer from "../../components/footer";
-import { layout } from "../../components/_variables";
+import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 export default function CreateAds() {
+  const navigate = useNavigate()
+ 
+  //multipe images
+  const [imageData, setImageData] = useState();
+  const [imageUrl, setImageUrl] = useState();
+
+  const getImages = async () => {
+    const urlimage = await getImageURL(imageData);
+    setImageUrl(urlimage);
+  };
+
+  useEffect(() => {
+    if (imageData) {
+      getImages();
+    }
+  }, [imageData]);
+
   const onFinish = (value) => {
-    console.log(value);
+    // console.log(value);
+    createAd(value, imageUrl);
+    navigate('/')
   };
-  const [array, setArray] = useState();
-  const normFile = (e) => {
-    console.log("Upload event:", e.fileList);
-    setArray(e.fileList);
-    // if (Array.isArray(e)) {
-    //   return e;
-    // }
-    // return e?.fileList;
-  };
-  console.log(array);
+
+  //single image working done
+  // const [imageData, setImageData] = useState();
+  // const getImages = async () => {
+  //   const urlimage = await getImageURL(imageData);
+  //   console.log("images url", urlimage);
+  // };
+
+  // if (imageData) {
+  //   getImages();
+  // }
 
   return (
     <div>
@@ -36,7 +58,7 @@ export default function CreateAds() {
             className="form"
           >
             <Form.Item
-              name={["product", "gender"]}
+              name={["product", "category"]}
               label="Select Catgory"
               rules={[
                 {
@@ -62,9 +84,7 @@ export default function CreateAds() {
               </Select>
             </Form.Item>
             <Form.Item
-              //form value save in nested object=>product is parent key and title is child key
               name={["product", "title"]}
-              // name='title'  //This is the key to save form value in key value pair
               label="Product Title"
               rules={[
                 {
@@ -123,35 +143,23 @@ export default function CreateAds() {
                 className="input-number"
               />
             </Form.Item>
-            {/* <Form.Item
-            name={["product", "image"]}
-            label="URL"
-            rules={[
-              {
-                required: true,
-                message: "Please input your Product Image URL!",
-              },
-              { type: "url", warningOnly: true },
-              { type: "string", min: 6 },
-            ]}
-          >
-            <Input size="large" placeholder="Images URL" />
-          </Form.Item> */}
             <Form.Item
-              name="upload"
-              label="Upload"
-              valuePropName="fileList"
-              getValueFromEvent={normFile}
-              extra="upload images"
+              name={["product", "images"]}
+              label="Upload Images"
+              rules={[
+                {
+                  required: true,
+                  message: "Please upload the images!",
+                },
+              ]}
             >
-              <Upload
+              <Input
+                size="large"
+                type="file"
                 multiple={true}
-                name="logo"
-                action="/upload.do"
-                listType="picture"
-              >
-                <Button icon={<UploadOutlined />}>Click to upload</Button>
-              </Upload>
+                className="input-number"
+                onChange={(e) => setImageData(e.target.files)}
+              />
             </Form.Item>
             <Form.Item name={["product", "description"]} label="Description">
               <Input.TextArea rows={4} placeholder="Product Detail" />
