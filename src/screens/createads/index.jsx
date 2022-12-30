@@ -73,6 +73,7 @@ export default function CreateAds() {
               >
                 <Option value="Pharmacy">Pharmacy</Option>
                 <Option value="General Grocery">General Grocery</Option>
+                <Option value="Bakery">Bakery</Option>
                 <Option value="Fruits and Vegetables">
                   Fruits and Vegetables
                 </Option>

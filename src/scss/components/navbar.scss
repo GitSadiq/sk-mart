@@ -20,6 +20,14 @@
                 cursor: pointer;
                 margin: auto;
                 text-shadow: 2px 2px $darkgreen;
+                .ant-badge-count{
+                    background: $darkgreen;
+                    font-size: $paraFontSize;
+                }
+                .anticon{
+                    font-size: $primaryFontSize;
+                    color: white;
+                }
             }
             .ant-input-group-wrapper {
                 .ant-input {

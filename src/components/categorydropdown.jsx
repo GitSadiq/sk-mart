@@ -5,19 +5,21 @@ import { Dropdown, Space } from "antd";
 import "../scss/components/categorydropdown.scss";
 const items = [
   {
-    label: <Link to="/comingsoon">Pharmacy</Link>,
+    label: <Link to="/products/Pharmacy">Pharmacy</Link>,
     key: "0",
   },
   {
-    label: <Link to="/products">General Grocery</Link>,
+    label: <Link to="/products/General Grocery">General Grocery</Link>,
     key: "1",
   },
   {
-    label: <Link to="/comingsoon">Bakery</Link>,
+    label: <Link to="/products/Bakery">Bakery</Link>,
     key: "2",
   },
   {
-    label: <Link to="/comingsoon">Fruits and Vegetables</Link>,
+    label: (
+      <Link to="/products/Fruits & Vegetables">Fruits and Vegetables</Link>
+    ),
     key: "3",
   },
   {

@@ -6,22 +6,30 @@ import { useNavigate } from "react-router-dom";
 import { getAllAds } from "../../config/firebase";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { useSelector, useDispatch } from "react-redux";
+import { addcart } from "../../store/slices/cartSlice";
+import swal from "sweetalert";
 
 export default function Products() {
   const param = useParams();
   const [productArray, setProductArray] = useState();
 
+  const dispatch = useDispatch();
+  const reduxData = useSelector((state) => state);
+  const email = reduxData.uidSlice.email;
+
   const getProductArray = async () => {
     const resp = await getAllAds(param.name);
     setProductArray(resp.allAds);
-    console.log(resp.allAds);
+    // console.log(resp.allAds);
   };
-  
+
   useEffect(() => {
     getProductArray();
   }, []);
 
   const navigate = useNavigate();
+
   return (
     <div>
       <NavBar />
@@ -38,9 +46,18 @@ export default function Products() {
                   md={{ span: 8 }}
                   lg={{ span: 6 }}
                   className="Col"
-                  onClick={() =>
-                    navigate(`/productdetail/${item.category}/${item.docId}`)
-                  }
+                  onClick={() => {
+                    if (email) {
+                      navigate(`/productdetail/${item.category}/${item.docId}`);
+                    } else {
+                      swal(
+                        "Warning!",
+                        "Login required see the product details and add to cart!",
+                        "warning"
+                      );
+                      navigate(`/products/${item.category}`);
+                    }
+                  }}
                 >
                   <Card
                     className="cards"
@@ -48,7 +65,21 @@ export default function Products() {
                   >
                     <div className="card-product-name">Rs: {item.price}</div>
                     <div className="card-product-content">{item.title}</div>
-                    <div className="card-button">Add to cart</div>
+                    <div
+                      className="card-button"
+                      onClick={() => {
+                        if (email) {
+                          dispatch(addcart({ ...item, quantity: 1, updatedprice: item.price * 1 }));
+                          swal(
+                            "Added to cart!",
+                            "This product added to your cart successfully!",
+                            "success"
+                          );
+                        }
+                      }}
+                    >
+                      Add to cart
+                    </div>
                   </Card>
                 </Col>
               );

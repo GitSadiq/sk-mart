@@ -8,21 +8,58 @@ import { BsTelephone } from "react-icons/bs";
 import { useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { specificAd } from "../../config/firebase";
+import { useSelector, useDispatch } from "react-redux";
+import { addcart } from "../../store/slices/cartSlice";
+import swal from "sweetalert";
 
 export default function Productdetail() {
   const param = useParams();
   const { category, docRef } = param;
   const [singleAd, setSingleAd] = useState();
+  const [count, setCount] = useState(1);
+  const dispatch = useDispatch();
+  const reduxData = useSelector((state) => state);
+  console.log(reduxData);
+  const email = reduxData.uidSlice.email;
+  console.log("email", email);
+  let addtocart;
+  if (singleAd) {
+    let { price } = singleAd;
+    addtocart = { ...singleAd, quantity: count, updatedprice: price * count };
+  }
 
+  const increment = () => {
+    setCount(count + 1);
+  };
+  const decrement = () => {
+    if (count > 1) {
+      setCount(count - 1);
+    } else {
+      swal("Alert!", "You can't reduce the quantity from one!", "warning");
+    }
+  };
   const getSingleAd = async () => {
     const resp = await specificAd(category, docRef);
     setSingleAd(resp);
-    console.log(resp);
   };
 
   useEffect(() => {
     getSingleAd();
   }, []);
+
+  const handleAddtoCart = () => {
+    if (email) {
+      dispatch(addcart(addtocart));
+      swal(
+        "Added to cart!",
+        "This product added to your cart successfully!",
+        "success"
+      );
+    } else {
+      swal("Error!", "Login Required to add a products to cart!", "warning");
+    }
+  };
+
   return (
     <div>
       <NavBar />
@@ -32,29 +69,20 @@ export default function Productdetail() {
             {/* <button className="edit-button">Edit Ad</button> */}
             <Col span={24} lg={{ span: 12 }}>
               <Carousel>
-                {
-                  singleAd.url.map((item, index) =>{
-                    return(
-                      <Image
-                      src={item}
-                      key={index}
-                      />
-                    )
-                  })
-                }
+                {singleAd.url.map((item, index) => {
+                  return <Image src={item} key={index} />;
+                })}
               </Carousel>
               <div className="description-div">
                 <h1>Description</h1>
                 <Divider />
-                <p>
-                 {singleAd.description}
-                </p>
+                <p>{singleAd.description}</p>
               </div>
             </Col>
             <Col span={24} lg={{ span: 12 }} className="col-2">
               <div className="title-price-location">
                 <div className="pirce-icons">
-                  <p className="price">Rs {singleAd.price} </p>
+                  <p className="price">Rs {singleAd.price * count} </p>
                   <div className="Icons-div">
                     <p className="icon">
                       <FiShare2 />
@@ -64,16 +92,36 @@ export default function Productdetail() {
                     </p>
                   </div>
                 </div>
-                <p className="title">
-                  {singleAd.title}
-                </p>
+                <p className="title">{singleAd.title}</p>
                 <div className="quantity">
-                  <p>Quantity: 0</p>
+                  <p>Quantity: {count}</p>
                   <div className="increment-decrement-button">
-                    <button>+</button> <span> 0</span> <button>-</button>
+                    <button
+                      onClick={() => {
+                        // dispatch(increment());
+                        increment();
+                      }}
+                    >
+                      +
+                    </button>{" "}
+                    <span>{count}</span>{" "}
+                    <button
+                      onClick={() => {
+                        // dispatch(decrement(count));
+                        decrement();
+                      }}
+                    >
+                      -
+                    </button>
                   </div>
                   <div className="add-to-cart-button">
-                    <button>Add to Cart</button>
+                    <button
+                      onClick={() => {
+                        handleAddtoCart();
+                      }}
+                    >
+                      Add to Cart
+                    </button>
                   </div>
                 </div>
                 <div className="CheckOut-button">

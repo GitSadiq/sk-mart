@@ -1,0 +1,42 @@
+@import "../../main.scss";
+
+.cart-body{
+    @include body(auto, $primaryFontFamily, $midFontSize, $darkgreen, white);
+    height: auto;
+    // border: $defaultborder;
+    margin: 5%;
+    text-align: center;
+    h1{
+        color: $darkgreen;
+    }
+    .row-1{
+        // border: $defaultborder;
+        .col{
+            text-align: center;
+            h2{
+                color: $darkgreen;
+            }
+        }
+    }
+    .row-2{
+            .col{
+                text-align: center;
+                // border: $defaultborder;
+                img{
+                    width: 100%;
+                    height: 50%;
+                }
+                .quantity-div{
+                    display: flex;
+                    justify-content: space-around;
+                    button{
+                        height: calc(18px + 2vmin);
+                        width: calc(18px + 2vmin);
+                    }
+                }
+                .remove{
+                    color: red;
+                }
+            }
+    }
+}

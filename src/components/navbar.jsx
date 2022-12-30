@@ -1,14 +1,15 @@
 import "../scss/components/navbar.scss";
 import logo from "../assets/images/sk-mart.png";
 import CategorDropDown from "./categorydropdown";
-import { Row, Col, Input } from "antd";
+import { Row, Col, Input, Badge } from "antd";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { isUserThere, logOut } from "../config/firebase";
 import swal from "sweetalert";
 import { getUid, getEmail } from "../store/slices/uidSlice";
 import { useDispatch, useSelector } from "react-redux";
-
+import { removecart } from "../store/slices/cartSlice";
+import { ShoppingCartOutlined } from "@ant-design/icons";
 const { Search } = Input;
 
 export default function NavBar() {
@@ -17,19 +18,22 @@ export default function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const reduxData = useSelector((state) => state);
+  const cartNumber = reduxData.cartSlice.cartArray.length
+  // console.log("cart", reduxData.cartSlice.cartArray.length)
 
   useEffect(() => {
     isUserThere(setUserUid, setUserEmail);
     dispatch(getUid(userUid));
     dispatch(getEmail(userEmail));
   }, [userUid]);
-  
-  console.log(reduxData);
+
+  // console.log(reduxData);
 
   function handleLogout() {
-    const resp = logOut(); 
+    const resp = logOut();
     dispatch(getUid(false));
     dispatch(getEmail(false));
+    dispatch(removecart());
     swal("Success!", resp.message, "success");
     navigate("/");
   }
@@ -133,7 +137,7 @@ export default function NavBar() {
           {reduxData.uidSlice.email === "admin@skmart.com" ? (
             <p
               onClick={() => {
-                navigate("./order");
+                navigate("/order");
               }}
             >
               Orders
@@ -141,9 +145,13 @@ export default function NavBar() {
           ) : (
             <p
               onClick={() => {
-                navigate("./carts");
+                navigate("/carts");
               }}
             >
+              <Badge count={cartNumber}  size="small">
+              <ShoppingCartOutlined />
+              </Badge>
+              {" "}
               Cart
             </p>
           )}
