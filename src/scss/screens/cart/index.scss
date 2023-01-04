@@ -19,24 +19,79 @@
         }
     }
     .row-2{
-            .col{
-                text-align: center;
-                // border: $defaultborder;
-                img{
-                    width: 100%;
-                    height: 50%;
-                }
-                .quantity-div{
-                    display: flex;
-                    justify-content: space-around;
-                    button{
-                        height: calc(18px + 2vmin);
-                        width: calc(18px + 2vmin);
-                    }
-                }
-                .remove{
-                    color: red;
+        .col{
+            text-align: center;
+            // border: $defaultborder;
+            img{
+                width: 100%;
+                height: 80%;
+            }
+            .quantity-div{
+                display: flex;
+                justify-content: space-around;
+                button{
+                    cursor: pointer;
+                    height: calc(18px + 2vmin);
+                    width: calc(18px + 2vmin);
+                    background-color: $darkgreen;
+                    color: white;
+                    border: $thinborder;
+                    border-radius: .5vh;
                 }
             }
+            .remove{
+                cursor: pointer;
+                color: red;
+            }
+        }
+    }
+    .row-3{
+        @extend .row-2;
+    }
+    .row-4{
+        @extend .row-1;
+    }
+    .row-5{
+        @extend .row-2;
+        @extend .row-1;
+    }
+    .row-6{
+        width: 100%;
+        button{
+            cursor: pointer;
+            background-color: $darkgreen;
+            color: white;
+            padding: 0.5% 3%;
+            font-size: $midFontSize;
+            border: $thinborder;
+            border-radius: 1vh;
+        }
+        button:hover{
+            background-color: white;
+            color: $darkgreen;
+        }
+    }
+}
+.empty-cart{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 79.5vh;
+    p{
+        font-size: $inputFontSize;
+    }
+    button{
+        cursor: pointer;
+        background-color: $darkgreen;
+        color: white;
+        padding: 0.5% 3%;
+        font-size: $midFontSize;
+        border: $thinborder;
+        border-radius: 1vh;
+    }
+    button:hover{
+        background-color: white;
+        color: $darkgreen;
     }
 }
