@@ -20,71 +20,71 @@
             margin: auto;
             text-shadow: 0px 0px 1px $darkgreen;
         }
-        .form{
-            margin: auto;
-            width: 100%;
-            margin-top: 2%;
-            display: flex;
-            flex-direction: column;
-            align-items: flex-start;
-            .ant-form-item{
-                width: 95%;
-                .ant-row{
-                    .ant-col{
-                        .ant-select-selector{
-                            @include border(0.2vh, $darkgreen);
-                            font-size: $inputFontSize;
-                        }
-                        .ant-select-focused{
-                            border-color: $darkgreen;
-                            box-shadow: 0 0 0 1px $lightgreen;
-                        }
-                        label{
-                            font-size: $inputFontSize;
-                            font-weight: 600;
-                        }
-                        .ant-input{
-                            @include border(0.2vh, $darkgreen);
-                            font-size: $inputFontSize;
-                        }
-                        .ant-input:focus {
-                            border-color: $darkgreen;
-                            outline: 0;
-                            box-shadow: 0 0 0 1px $lightgreen;
-                        }
-                        .input-number{
-                            width: auto;
-                        }
-                        .ant-input-group-addon{
-                            @include border(0.2vh, $darkgreen);
-                            border-right: 0vh !important;
-                            color: $darkgreen;
-                        }
-                    }
+    }
+}
+.form{
+    margin: auto;
+    width: 100%;
+    margin-top: 2%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    .ant-form-item{
+        width: 95%;
+        .ant-row{
+            .ant-col{
+                .ant-select-selector{
+                    @include border(0.2vh, $darkgreen);
+                    font-size: $inputFontSize;
                 }
-            }
-            .button{
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                .ant-btn{
-                    @include button(20vh, 6.5vh, $defaultborder, 1.5vh,
-                     $buttonfontsize, white, $darkgreen );
+                .ant-select-focused{
+                    border-color: $darkgreen;
+                    box-shadow: 0 0 0 1px $lightgreen;
                 }
-                .ant-btn:hover, .ant-btn:focus{
-                    @include border(0.4vh, $darkgreen);
+                label{
+                    font-size: $inputFontSize;
+                    font-weight: 600;
+                }
+                .ant-input{
+                    @include border(0.2vh, $darkgreen);
+                    font-size: $inputFontSize;
+                }
+                .ant-input:focus {
+                    border-color: $darkgreen;
+                    outline: 0;
+                    box-shadow: 0 0 0 1px $lightgreen;
+                }
+                .input-number{
+                    width: auto;
+                }
+                .ant-input-group-addon{
+                    @include border(0.2vh, $darkgreen);
+                    border-right: 0vh !important;
                     color: $darkgreen;
-                    background-color: white;
                 }
             }
         }
     }
-    @media screen and (max-width: 560px) {
-        .form{
-            width: 90% !important;
+    .button{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        .ant-btn{
+            @include button(20vh, 6.5vh, $defaultborder, 1.5vh,
+             $buttonfontsize, white, $darkgreen );
         }
-        .postcontent{
-            width: 98%;
+        .ant-btn:hover, .ant-btn:focus{
+            @include border(0.4vh, $darkgreen);
+            color: $darkgreen;
+            background-color: white;
         }
+    }
+}
+@media screen and (max-width: 560px) {
+    .form{
+        width: 90% !important;
+    }
+    .postcontent{
+        width: 98%;
     }
 }

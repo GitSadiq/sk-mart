@@ -1,0 +1,144 @@
+@import "../../main.scss";
+@import "../../screens/createads/index.scss";
+
+.orderdetail-body{
+    display: flex;
+    flex-direction: column;
+    min-height: 85.4vh;
+    max-height: auto;
+    margin: 5%;
+    .row-1{
+        .ant-steps-item-custom.ant-steps-item-process .ant-steps-item-icon > .ant-steps-icon{
+            font-size: $headingFontSize;
+            color: $darkgreen;
+        }
+        .ant-steps-item-custom > .ant-steps-item-container > .ant-steps-item-icon > .ant-steps-icon {
+            font-size: $headingFontSize;
+        }
+        .ant-steps-item-finish .ant-steps-item-icon > .ant-steps-icon{
+            font-size: $headingFontSize;
+            color: $darkgreen;
+        }
+    }    
+}
+
+.shipping-body{
+    .row-1{
+        margin-top: 10%;
+        // border: $thinborder;
+        // padding: 10% 0%;
+        .col{
+            margin: auto;
+            .button{
+                width: 100%;    
+                .ant-btn{
+                    @include button(28vh, 7vh, $defaultborder, 1.0vh,
+                     $buttonfontsize, white, $darkgreen );
+                }
+                .ant-btn:hover, .ant-btn:focus{
+                    @include border(0.4vh, $darkgreen);
+                    color: $darkgreen;
+                    background-color: white;
+                }
+            }
+        }
+    }
+}
+
+.verification-body{
+    @extend .orderdetail-body;
+    // border: $defaultborder;
+    // text-align: center;
+    .row-1{
+        // border: $defaultborder;
+        .col{
+            border: $thinborder;
+            h2{
+                text-align: center;
+                color: $darkgreen;
+            }
+            .detail{
+                display: flex;
+                h4{
+                    width: 25%;
+                    font-size: $inputFontSize;
+                    color: $darkgreen;
+                }
+                p{
+                    width: 75%;
+                    @extend h4;
+                }
+            }
+        }
+        .col-2{
+            @extend .col;
+            .detail{
+                display: flex;
+                h4{
+                    width: 50%;
+                }
+                p{
+                    @extend h4;
+                    width: 50%;
+                }
+            } 
+        }
+        .col-3{
+            display: flex;
+            justify-content: center;
+            margin: auto;
+            .ant-btn{
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                @include button(28vh, 7vh, $defaultborder, 1.0vh,
+                 $buttonfontsize, white, $darkgreen );
+            }
+            .ant-btn:hover{
+                @include border(0.4vh, $darkgreen);
+                    color: $darkgreen;
+                    background-color: white;
+            }
+        }
+    }   
+}
+
+.payment-body{
+    display: flex;
+    justify-content: center;
+    // border: $defaultborder;
+    text-align: center;
+    .row-1{
+        // border: $defaultborder;
+        margin: 5% auto;
+        .col{
+            width: 100%;
+            // border: $defaultborder; 
+            h1{
+                color: $darkgreen;
+            }
+            .payment-method{
+                .div{
+                    display: flex;
+                    justify-content: space-around;
+                    align-items: center;
+                    margin: 5% auto;
+                    padding: 0% 5%;
+                    border: $defaultborder; 
+                    height: 8vh;
+                    width: 40vw;
+                    font-size: $primaryFontSize;
+                    color: $darkgreen;
+                    border-radius: 1vh;
+                    .icon{
+                        width: 20%;
+                    }
+                    .name{
+                        width: 80%;
+                    }
+                }
+            }
+        }
+    }
+
+}

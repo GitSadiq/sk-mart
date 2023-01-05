@@ -160,7 +160,7 @@ function Carts() {
             </Col>
             <Row gutter={[16, 16]} className="row-6">
               <Col span={24} className="col">
-                <button>Proceed to Checkout</button>
+                <button onClick={() => navigate("/orderdetails")}>Proceed to Checkout</button>
               </Col>
             </Row>
           </Row>
