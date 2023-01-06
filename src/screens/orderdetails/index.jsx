@@ -1,6 +1,10 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import { orderSummary, shipDetail, removeOrderDetail } from "../../store/slices/orderSlice";
+import {
+  orderSummary,
+  shipDetail,
+  removeOrderDetail,
+} from "../../store/slices/orderSlice";
 import { removecart } from "../../store/slices/cartSlice";
 import { Steps, Row, Col, Form, Input, Button, Divider } from "antd";
 import { FaShippingFast } from "react-icons/fa";
@@ -22,10 +26,11 @@ export default function Orderdetails() {
   const reduxData = useSelector((state) => state.cartSlice.cartArray);
   let subtotal = 0;
   let shipFee = 150;
-  let total = subtotal + shipFee;
+  let total;
   console.log(reduxData);
   reduxData.map((item, index) => {
     subtotal = subtotal + item.updatedprice;
+    total = subtotal + shipFee;
     return <></>;
   });
 
@@ -34,11 +39,11 @@ export default function Orderdetails() {
   const onFinishShippingDetails = (value) => {
     setCurrent(1);
     dispatch(shipDetail(value));
+    dispatch(orderSummary({ subtotal, shipFee, total }));
   };
 
   const onFinishVerification = () => {
     setCurrent(2);
-    dispatch(orderSummary({ subtotal, shipFee, total }));
   };
 
   const form = [
@@ -208,8 +213,8 @@ function Verification({ finish }) {
 
 function Payment() {
   const reduxData = useSelector((state) => state);
-  const navigate = useNavigate()
-  const dispatch = useDispatch()
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const Available = () => {
     swal({
@@ -224,9 +229,9 @@ function Payment() {
           icon: "success",
         });
         order(reduxData);
-        dispatch(removecart())
-        dispatch(removeOrderDetail())
-        navigate("/")
+        dispatch(removecart());
+        dispatch(removeOrderDetail());
+        navigate("/");
       } else {
         swal("your order is not placed");
       }

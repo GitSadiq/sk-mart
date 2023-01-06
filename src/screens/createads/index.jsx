@@ -10,8 +10,8 @@ import { useNavigate } from "react-router-dom";
 const { Option } = Select;
 
 export default function CreateAds() {
-  const navigate = useNavigate()
- 
+  const navigate = useNavigate();
+
   //multipe images
   const [imageData, setImageData] = useState();
   const [imageUrl, setImageUrl] = useState();
@@ -30,7 +30,7 @@ export default function CreateAds() {
   const onFinish = (value) => {
     // console.log(value);
     createAd(value, imageUrl);
-    navigate('/')
+    navigate("/");
   };
 
   //single image working done
@@ -74,9 +74,7 @@ export default function CreateAds() {
                 <Option value="Pharmacy">Pharmacy</Option>
                 <Option value="General Grocery">General Grocery</Option>
                 <Option value="Bakery">Bakery</Option>
-                <Option value="Fruits and Vegetables">
-                  Fruits and Vegetables
-                </Option>
+                <Option value="Fruits & Vegetables">Fruits & Vegetables</Option>
                 <Option value="Dairy Products">Dairy Products</Option>
                 <Option value="Snacks & Beverages">Snacks & Beverages</Option>
                 <Option value="Frozen Products">Frozen Products</Option>

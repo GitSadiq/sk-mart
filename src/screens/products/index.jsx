@@ -21,7 +21,7 @@ export default function Products() {
   const getProductArray = async () => {
     const resp = await getAllAds(param.name);
     setProductArray(resp.allAds);
-    // console.log(resp.allAds);
+    console.log("sdsd", resp.allAds, param.name);
   };
 
   useEffect(() => {
