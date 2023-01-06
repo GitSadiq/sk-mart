@@ -87,7 +87,7 @@ function logOut() {
   }
 }
 
-//trying for multiple images
+//trying for multiple images (done)
 async function getImageURL(imageData) {
   let imageUrlArray = [];
   try {
@@ -158,14 +158,29 @@ const specificAd = async (category, docRef) => {
     const q = query(collection(db, category), where("docId", "==", docRef));
     const querySnapshot = await getDocs(q);
     // let copyArray = [];
-    let singleAdObject
+    let singleAdObject;
     querySnapshot.forEach((doc) => {
       // copyArray.push(doc.data());
-      singleAdObject = doc.data()
+      singleAdObject = doc.data();
     });
-    return singleAdObject  
+    return singleAdObject;
   } catch (error) {
     return error;
+  }
+};
+
+const order = async (reduxData) => {
+  const payment = reduxData.orderSlice.orderSummary;
+  const address = reduxData.orderSlice.shipDetail;
+  const items = reduxData.cartSlice;
+  try {
+    const response = await addDoc(collection(db, "orders"), {
+      payment,
+      address,
+      items,
+    });
+  } catch (error) {
+    alert("Some data missing in ad ", error.message);
   }
 };
 
@@ -178,4 +193,5 @@ export {
   createAd,
   getAllAds,
   specificAd,
+  order,
 };

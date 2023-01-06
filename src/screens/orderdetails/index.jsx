@@ -1,5 +1,7 @@
 import { useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
+import { orderSummary, shipDetail, removeOrderDetail } from "../../store/slices/orderSlice";
+import { removecart } from "../../store/slices/cartSlice";
 import { Steps, Row, Col, Form, Input, Button, Divider } from "antd";
 import { FaShippingFast } from "react-icons/fa";
 import { BsBank } from "react-icons/bs";
@@ -7,29 +9,41 @@ import { TiHomeOutline } from "react-icons/ti";
 import { BsCash } from "react-icons/bs";
 import { RiSecurePaymentFill } from "react-icons/ri";
 import { SolutionOutlined } from "@ant-design/icons";
+import swal from "sweetalert";
 import Footer from "../../components/footer";
 import NavBar from "../../components/navbar";
+import { order } from "../../config/firebase";
 import "../../scss/screens/orderdetails/index.scss";
+import { useNavigate } from "react-router-dom";
+
 export default function Orderdetails() {
-  const [current, setCurrent] = useState(2);
-  const [shippingDetail, setShippingDetail] = useState(null);
+  const [current, setCurrent] = useState(0);
+
+  const reduxData = useSelector((state) => state.cartSlice.cartArray);
+  let subtotal = 0;
+  let shipFee = 150;
+  let total = subtotal + shipFee;
+  console.log(reduxData);
+  reduxData.map((item, index) => {
+    subtotal = subtotal + item.updatedprice;
+    return <></>;
+  });
+
+  const dispatch = useDispatch();
 
   const onFinishShippingDetails = (value) => {
-    console.log(value);
-    setShippingDetail(value);
     setCurrent(1);
+    dispatch(shipDetail(value));
   };
 
   const onFinishVerification = () => {
     setCurrent(2);
+    dispatch(orderSummary({ subtotal, shipFee, total }));
   };
 
   const form = [
     <Shipping finish={onFinishShippingDetails} />,
-    <Verification
-      shippingDetail={shippingDetail}
-      finish={onFinishVerification}
-    />,
+    <Verification finish={onFinishVerification} />,
     <Payment />,
   ];
   return (
@@ -68,20 +82,13 @@ function Shipping({ finish }) {
       span: 16,
     },
   };
-
   return (
     <div className="shipping-body">
       <Row gutter={[16, 16]} className="row-1">
         <Col span={18} className="col">
-          <Form
-            {...layout}
-            name="nest-messages"
-            onFinish={finish}
-            //   form={from}
-            className="form"
-          >
+          <Form {...layout} name="basic" onFinish={finish} className="form">
             <Form.Item
-              name={["shippingdetail", "name"]}
+              name="name"
               label="Name"
               rules={[
                 {
@@ -96,7 +103,7 @@ function Shipping({ finish }) {
               <Input placeholder={"Name"} size="large" />
             </Form.Item>
             <Form.Item
-              name={["shippingdetail", "number"]}
+              name="number"
               label="Phone Number"
               rules={[
                 {
@@ -114,7 +121,7 @@ function Shipping({ finish }) {
               />
             </Form.Item>
             <Form.Item
-              name={["shippingdetail", "address"]}
+              name="address"
               label="Street Address"
               rules={[
                 {
@@ -140,22 +147,16 @@ function Shipping({ finish }) {
   );
 }
 
-function Verification({ shippingDetail, finish }) {
-  const shipDetail = shippingDetail.shippingdetail;
-  console.log(shipDetail);
-  const reduxData = useSelector((state) => state.cartSlice.cartArray);
-  let subtotal = 0;
-  let shipFee = 150;
-  let total = subtotal + shipFee;
-  console.log(reduxData);
-  reduxData.map((item, index) => {
-    subtotal = subtotal + item.updatedprice;
-    return <></>;
-  });
+function Verification({ finish }) {
+  const reduxData = useSelector((state) => state);
+  const item = reduxData.cartSlice.cartArray;
+  const price = reduxData.orderSlice.orderSummary;
+  const shipDetail = reduxData.orderSlice.shipDetail;
+
   return (
     <div className="verification-body">
       <Row gutter={[16, 16]} className="row-1">
-        <Col span={12} className="col">
+        <Col span={24} lg={{ span: 14 }} className="col">
           <h2>Shipping Details</h2>
           <Divider></Divider>
           <div>
@@ -173,25 +174,25 @@ function Verification({ shippingDetail, finish }) {
             </div>
           </div>
         </Col>
-        <Col span={12} className="col-2">
+        <Col span={24} lg={{ span: 9, offset: 1 }} className="col-2">
           <h2>Order Summary</h2>
           <Divider></Divider>
           <div>
             <div className="detail">
               <h4>Total Item</h4>
-              <p>{reduxData.length}</p>
+              <p>{item.length}</p>
             </div>
             <div className="detail">
               <h4>SubTotal:</h4>
-              <p>Rs: {subtotal}</p>
+              <p>Rs: {price.subtotal}</p>
             </div>
             <div className="detail">
               <h4>Delivary Fee:</h4>
-              <p>Rs: {shipFee}</p>
+              <p>Rs: {price.shipFee}</p>
             </div>
             <div className="detail">
               <h4>Total:</h4>
-              <p>Rs: {total}</p>
+              <p>Rs: {price.total}</p>
             </div>
           </div>
         </Col>
@@ -206,32 +207,62 @@ function Verification({ shippingDetail, finish }) {
 }
 
 function Payment() {
+  const reduxData = useSelector((state) => state);
+  const navigate = useNavigate()
+  const dispatch = useDispatch()
+
+  const Available = () => {
+    swal({
+      title: "Are you sure?",
+      text: "This order will be proceed!",
+      icon: "info",
+      buttons: true,
+      dangerMode: true,
+    }).then((willDelete) => {
+      if (willDelete) {
+        swal("Thanks for shopping with us!", {
+          icon: "success",
+        });
+        order(reduxData);
+        dispatch(removecart())
+        dispatch(removeOrderDetail())
+        navigate("/")
+      } else {
+        swal("your order is not placed");
+      }
+    });
+  };
+
+  const notAvailable = () => {
+    swal("Sorry!", "This Service will available soon!");
+  };
+
   return (
     <div className="payment-body">
       <Row gutter={[16, 16]} className="row-1">
         <Col span={24} className="col">
           <h1>Payment Methods</h1>
-          <Divider></Divider>
           <div className="payment-method">
-            <div className="div">
+            <Divider></Divider>
+            <div onClick={() => notAvailable()} className="div">
               <div className="icon">
                 <BsCash />
               </div>
               <div className="name">JAZZ CASH</div>
             </div>
-            <div className="div">
+            <div onClick={() => notAvailable()} className="div">
               <div className="icon">
                 <BsCash />
               </div>
               <div className="name">EASY PAISA</div>
             </div>
-            <div className="div">
+            <div onClick={() => notAvailable()} className="div">
               <div className="icon">
                 <BsBank />
               </div>
               <div className="name">BANK ACCOUNT</div>
             </div>
-            <div className="div">
+            <div onClick={() => Available()} className="div">
               <div className="icon">
                 <TiHomeOutline />
               </div>

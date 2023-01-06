@@ -46,22 +46,28 @@ export default function Products() {
                   md={{ span: 8 }}
                   lg={{ span: 6 }}
                   className="Col"
-                  onClick={() => {
-                    if (email) {
-                      navigate(`/productdetail/${item.category}/${item.docId}`);
-                    } else {
-                      swal(
-                        "Warning!",
-                        "Login required see the product details and add to cart!",
-                        "warning"
-                      );
-                      navigate(`/products/${item.category}`);
-                    }
-                  }}
                 >
                   <Card
                     className="cards"
-                    cover={<img alt="example" src={item.url[0]} />}
+                    cover={
+                      <img
+                        alt="example"
+                        src={item.url[0]}
+                        onClick={() => {
+                          if (email) {
+                            navigate(
+                              `/productdetail/${item.category}/${item.docId}`
+                            );
+                          } else {
+                            swal(
+                              "Warning!",
+                              "Login required to see the product details!",
+                              "warning"
+                            );
+                          }
+                        }}
+                      />
+                    }
                   >
                     <div className="card-product-name">Rs: {item.price}</div>
                     <div className="card-product-content">{item.title}</div>
@@ -69,11 +75,23 @@ export default function Products() {
                       className="card-button"
                       onClick={() => {
                         if (email) {
-                          dispatch(addcart({ ...item, quantity: 1, updatedprice: item.price * 1 }));
+                          dispatch(
+                            addcart({
+                              ...item,
+                              quantity: 1,
+                              updatedprice: item.price * 1,
+                            })
+                          );
                           swal(
                             "Added to cart!",
                             "This product added to your cart successfully!",
                             "success"
+                          );
+                        } else {
+                          swal(
+                            "Warning!",
+                            "Login required for add to cart!",
+                            "warning"
                           );
                         }
                       }}
