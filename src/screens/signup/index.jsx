@@ -11,17 +11,12 @@ import swal from "sweetalert";
 export default function SignUp() {
   const navigate = useNavigate();
   const onFinish = async (values) => {
-    const alertuser = await userSignUp(values)
+    const alertuser = await userSignUp(values);
     if (alertuser.error) {
-      swal("ERROR!",
-        alertuser.message,
-        "error");
-    }
-    else {
-      swal("Success!",
-        alertuser.message,
-        "success");
-      navigate('/login')
+      swal("ERROR!", alertuser.message, "error");
+    } else {
+      swal("Success!", alertuser.message, "success");
+      navigate("/login");
     }
   };
 

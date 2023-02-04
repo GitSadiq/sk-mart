@@ -1,5 +1,5 @@
 import "../scss/components/navbar.scss";
-import logo from "../assets/images/sk-mart.png";
+import logo from "../assets/images/mart.png";
 import CategorDropDown from "./categorydropdown";
 import { Row, Col, Input, Badge } from "antd";
 import { useNavigate } from "react-router-dom";
@@ -18,7 +18,7 @@ export default function NavBar() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const reduxData = useSelector((state) => state);
-  const cartNumber = reduxData.cartSlice.cartArray.length
+  const cartNumber = reduxData.cartSlice.cartArray.length;
   // console.log("cart", reduxData.cartSlice.cartArray.length)
 
   useEffect(() => {
@@ -148,10 +148,9 @@ export default function NavBar() {
                 navigate("/carts");
               }}
             >
-              <Badge count={cartNumber}  size="small">
-              <ShoppingCartOutlined />
-              </Badge>
-              {" "}
+              <Badge count={cartNumber} size="small">
+                <ShoppingCartOutlined />
+              </Badge>{" "}
               Cart
             </p>
           )}

@@ -89,6 +89,7 @@ function logOut() {
 
 //trying for multiple images (done)
 async function getImageURL(imageData) {
+  console.log("ye dakho", imageData[0]);
   let imageUrlArray = [];
   try {
     for (var i = 0; i < imageData.length; i++) {

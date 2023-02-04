@@ -1,3 +1,27 @@
 @import "./fonts";
 @import "./variable";
-@import "./color"
+@import "./color";
+
+.swal-button {
+  background-color: #0c620c;
+}
+.swal-button:not([disabled]):hover {
+  background-color: #0c620cc3;
+}
+.swal-button--danger {
+  background-color: red;
+}
+.swal-button--cancel {
+  background-color: rgb(86, 86, 86);
+  color: white;
+}
+.swal-button--cancel:hover {
+  background-color: rgb(118, 118, 118) !important;
+}
+.swal-icon--warning {
+  border-color: orange !important    ;
+}
+.swal-icon--warning__body,
+.swal-icon--warning__dot {
+  background-color: orange !important;
+}

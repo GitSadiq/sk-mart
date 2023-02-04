@@ -12,13 +12,13 @@ export default function Login() {
   const navigate = useNavigate();
 
   const onFinish = async (values) => {
-      const alertlogin = await userLogin(values);
-      if (alertlogin.error) {
-        swal("ERROR!", alertlogin.message, "error");
-      } else {
-        swal("Success!", alertlogin.message, "success");
-          navigate("/");
-      }
+    const alertlogin = await userLogin(values);
+    if (alertlogin.error) {
+      swal("ERROR!", alertlogin.message, "error");
+    } else {
+      swal("Success!", alertlogin.message, "success");
+      navigate("/");
+    }
   };
 
   return (
